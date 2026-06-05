@@ -1,0 +1,5 @@
+name = "schillerplatz-versteigerung"
+compatibility_date = "2026-06-05"
+
+[assets]
+directory = "."

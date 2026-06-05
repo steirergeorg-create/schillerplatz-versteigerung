@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Schillerplatz 7 · Versteigerung · Graz</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Lora:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --pink:   #e8007d;
+      --olive:  #a8c87a;
+      --text:   #1a1a18;
+      --gray:   #6b6b68;
+      --light:  #f5f4f0;
+      --white:  #ffffff;
+      --border: #e2e0da;
+      --dark:   #111110;
+      --serif:  'Lora', Georgia, serif;
+      --sans:   'Inter', system-ui, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--sans);
+      font-size: 15px;
+      color: var(--text);
+      background: var(--white);
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    /* ── NAV ── */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      height: 72px;
+      transition: background 0.3s, box-shadow 0.3s;
+    }
+    .nav--scrolled {
+      background: rgba(17,17,16,0.96);
+      box-shadow: 0 1px 0 rgba(255,255,255,0.06);
+      backdrop-filter: blur(8px);
+    }
+    .nav-brand {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.2;
+    }
+    .nav-brand-sub {
+      font-size: 9px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+    }
+    .nav-brand-name {
+      font-family: var(--serif);
+      font-size: 17px;
+      color: #fff;
+      font-weight: 400;
+    }
+    .nav-cta {
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.7);
+      border: 1px solid rgba(255,255,255,0.25);
+      padding: 8px 20px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .nav-cta:hover { color: #fff; border-color: rgba(255,255,255,0.6); }
+
+    /* ── HERO ── */
+    .hero {
+      height: 100vh;
+      min-height: 560px;
+      position: relative;
+      display: flex;
+      align-items: flex-end;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: url('img/93834 Aussenansicht I.jpg') center/cover no-repeat;
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 35%),
+        linear-gradient(to top, rgba(10,10,8,0.82) 0%, rgba(10,10,8,0.05) 55%);
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 0 48px 72px;
+      width: 100%;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--pink);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 6px 16px;
+      margin-bottom: 20px;
+    }
+    .hero-badge::before {
+      content: '';
+      width: 7px; height: 7px;
+      background: #fff;
+      border-radius: 50%;
+      display: inline-block;
+    }
+    .hero-title {
+      font-family: var(--serif);
+      font-size: clamp(42px, 6vw, 80px);
+      font-weight: 400;
+      color: #fff;
+      line-height: 1.05;
+      margin-bottom: 16px;
+    }
+    .hero-addr {
+      font-size: 15px;
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 0.06em;
+      margin-bottom: 48px;
+    }
+    .hero-termin {
+      display: inline-flex;
+      flex-direction: column;
+      gap: 4px;
+      border-left: 2px solid var(--pink);
+      padding-left: 20px;
+    }
+    .hero-termin-label {
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+    }
+    .hero-termin-value {
+      font-family: var(--serif);
+      font-size: 22px;
+      color: #fff;
+    }
+
+    /* ── KERNDATEN ── */
+    .kerndaten {
+      background: var(--dark);
+      padding: 0 48px;
+    }
+    .kerndaten-grid {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border-left: 1px solid rgba(255,255,255,0.07);
+    }
+    .kerndaten-item {
+      padding: 32px 24px;
+      border-right: 1px solid rgba(255,255,255,0.07);
+    }
+    .kerndaten-label {
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      display: block;
+      margin-bottom: 8px;
+    }
+    .kerndaten-value {
+      font-family: var(--serif);
+      font-size: 22px;
+      color: #fff;
+      line-height: 1.1;
+    }
+    .kerndaten-value--pink { color: var(--pink); }
+    .kerndaten-sub {
+      font-size: 11px;
+      color: rgba(255,255,255,0.3);
+      margin-top: 5px;
+      display: block;
+    }
+
+    /* ── SECTIONS ── */
+    .section {
+      padding: 88px 48px;
+    }
+    .section--light { background: var(--light); }
+    .section--white { background: var(--white); }
+    .section-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .section-label {
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gray);
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-family: var(--serif);
+      font-size: clamp(28px, 3.5vw, 44px);
+      font-weight: 400;
+      line-height: 1.15;
+      color: var(--text);
+      margin-bottom: 40px;
+    }
+
+    /* ── OBJEKT ── */
+    .objekt-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+    .objekt-text p {
+      font-size: 15px;
+      line-height: 1.8;
+      color: var(--gray);
+      margin-bottom: 16px;
+    }
+    .objektdaten {
+      margin-top: 36px;
+      border: 1px solid var(--border);
+    }
+    .objektdaten-row {
+      display: flex;
+      border-bottom: 1px solid var(--border);
+    }
+    .objektdaten-row:last-child { border-bottom: none; }
+    .objektdaten-key {
+      width: 150px;
+      flex-shrink: 0;
+      padding: 13px 16px;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gray);
+      background: var(--light);
+      border-right: 1px solid var(--border);
+    }
+    .objektdaten-val {
+      padding: 13px 16px;
+      font-size: 14px;
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    /* Termin + Ausrufpreis */
+    .termin-box {
+      border: 2px solid var(--pink);
+      padding: 32px;
+      margin-bottom: 20px;
+    }
+    .termin-box-label {
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--pink);
+      display: block;
+      margin-bottom: 16px;
+    }
+    .termin-datum {
+      font-family: var(--serif);
+      font-size: 28px;
+      color: var(--text);
+      line-height: 1.2;
+      margin-bottom: 4px;
+    }
+    .termin-uhrzeit {
+      font-size: 14px;
+      color: var(--gray);
+      margin-bottom: 24px;
+    }
+    .termin-ort {
+      font-size: 13.5px;
+      color: var(--text);
+      line-height: 1.7;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+    .termin-ort strong { display: block; font-weight: 500; margin-bottom: 2px; }
+    .ausrufpreis-box {
+      background: var(--light);
+      border: 1px solid var(--border);
+      padding: 28px 32px;
+    }
+    .ausrufpreis-label {
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gray);
+      display: block;
+      margin-bottom: 8px;
+    }
+    .ausrufpreis-value {
+      font-family: var(--serif);
+      font-size: 36px;
+      color: var(--text);
+    }
+    .ausrufpreis-sub {
+      font-size: 12px;
+      color: var(--gray);
+      margin-top: 8px;
+      line-height: 1.6;
+    }
+
+    /* ── FOTOS ── */
+    .fotos-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 4px;
+      margin-bottom: 4px;
+    }
+    .foto-main img {
+      width: 100%;
+      height: 440px;
+      object-fit: cover;
+      cursor: zoom-in;
+      display: block;
+      transition: opacity 0.2s;
+    }
+    .foto-main img:hover { opacity: 0.9; }
+    .foto-side {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4px;
+    }
+    .foto-side img {
+      width: 100%;
+      height: 217px;
+      object-fit: cover;
+      cursor: zoom-in;
+      display: block;
+      transition: opacity 0.2s;
+    }
+    .foto-side img:hover { opacity: 0.9; }
+    .fotos-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 4px;
+    }
+    .fotos-row img {
+      width: 100%;
+      height: 190px;
+      object-fit: cover;
+      cursor: zoom-in;
+      display: block;
+      transition: opacity 0.2s;
+    }
+    .fotos-row img:hover { opacity: 0.9; }
+
+    /* ── LAGE ── */
+    .lage-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 64px;
+      align-items: start;
+    }
+    .lage-text p {
+      font-size: 14px;
+      line-height: 1.8;
+      color: var(--gray);
+      margin-bottom: 16px;
+    }
+    .lage-punkte {
+      margin-top: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .lage-punkt {
+      display: flex;
+      gap: 12px;
+      font-size: 13px;
+      color: var(--text);
+    }
+    .lage-punkt-icon {
+      color: var(--olive);
+      font-size: 8px;
+      margin-top: 4px;
+      flex-shrink: 0;
+    }
+    .lage-map {
+      height: 380px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+    .lage-map iframe { width: 100%; height: 100%; border: none; }
+
+    /* ── KONTAKT ── */
+    .kontakt-inner {
+      max-width: 720px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .kontakt-inner > p {
+      font-size: 15px;
+      color: var(--gray);
+      line-height: 1.7;
+      margin-bottom: 40px;
+    }
+    .kontakt-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      text-align: left;
+      margin-bottom: 32px;
+    }
+    .kontakt-card {
+      background: var(--white);
+      padding: 28px 32px;
+    }
+    .kontakt-card-label {
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gray);
+      display: block;
+      margin-bottom: 10px;
+    }
+    .kontakt-card-value {
+      font-size: 15px;
+      color: var(--text);
+      line-height: 1.6;
+    }
+    .kontakt-card-value a { color: var(--text); }
+    .kontakt-card-value a:hover { color: var(--pink); }
+    .kontakt-hinweis {
+      font-size: 12px;
+      color: var(--gray);
+      line-height: 1.7;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    /* ── FOOTER ── */
+    .footer {
+      background: var(--dark);
+      padding: 40px 48px;
+    }
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .footer-brand {
+      font-family: var(--serif);
+      font-size: 16px;
+      color: rgba(255,255,255,0.5);
+    }
+    .footer-brand span { color: rgba(255,255,255,0.8); }
+    .footer-copy {
+      font-size: 12px;
+      color: rgba(255,255,255,0.3);
+      letter-spacing: 0.04em;
+    }
+
+    /* ── LIGHTBOX ── */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.8);
+      z-index: 999;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+    }
+    .lightbox.open { display: flex; }
+    .lightbox-img {
+      max-width: 85vw;
+      max-height: 85vh;
+      object-fit: contain;
+      box-shadow: 0 32px 80px rgba(0,0,0,0.5);
+    }
+    .lightbox-close {
+      position: fixed;
+      top: 24px; right: 32px;
+      color: rgba(255,255,255,0.7);
+      font-size: 32px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      line-height: 1;
+      transition: color 0.2s;
+    }
+    .lightbox-close:hover { color: #fff; }
+    .lightbox-prev, .lightbox-next {
+      position: fixed;
+      top: 50%;
+      transform: translateY(-50%);
+      color: rgba(255,255,255,0.6);
+      font-size: 40px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 16px;
+      transition: color 0.2s;
+      line-height: 1;
+    }
+    .lightbox-prev:hover, .lightbox-next:hover { color: #fff; }
+    .lightbox-prev { left: 16px; }
+    .lightbox-next { right: 16px; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .nav { padding: 0 24px; }
+      .hero-content { padding: 0 24px 56px; }
+      .kerndaten { padding: 0 24px; }
+      .kerndaten-grid { grid-template-columns: repeat(2, 1fr); }
+      .section { padding: 64px 24px; }
+      .objekt-grid { grid-template-columns: 1fr; gap: 40px; }
+      .fotos-grid { grid-template-columns: 1fr; }
+      .foto-main img { height: 280px; }
+      .foto-side { grid-template-columns: 1fr 1fr; }
+      .foto-side img { height: 138px; }
+      .fotos-row { grid-template-columns: 1fr 1fr; }
+      .lage-grid { grid-template-columns: 1fr; }
+      .kontakt-cards { grid-template-columns: 1fr; }
+      .footer { padding: 32px 24px; }
+    }
+    @media (max-width: 480px) {
+      .kerndaten-grid { grid-template-columns: 1fr 1fr; }
+      .fotos-row { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <header class="nav" id="nav">
+    <div class="nav-brand">
+      <span class="nav-brand-sub">Versteigerung · Graz</span>
+      <span class="nav-brand-name">Schillerplatz 7</span>
+    </div>
+    <a href="#kontakt" class="nav-cta">Kontakt</a>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <span class="hero-badge">Gerichtliche Versteigerung</span>
+      <h1 class="hero-title">Schillerplatz 7<br>8010 Graz</h1>
+      <p class="hero-addr">Bestandsgebäude · Innenstadtlage · As-is</p>
+      <div class="hero-termin">
+        <span class="hero-termin-label">Versteigerungstermin</span>
+        <span class="hero-termin-value">TT. Monat JJJJ · HH:MM Uhr</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- KERNDATEN -->
+  <div class="kerndaten">
+    <div class="kerndaten-grid">
+      <div class="kerndaten-item">
+        <span class="kerndaten-label">Versteigerungstermin</span>
+        <span class="kerndaten-value kerndaten-value--pink">TT.MM.JJJJ</span>
+        <span class="kerndaten-sub">HH:MM Uhr</span>
+      </div>
+      <div class="kerndaten-item">
+        <span class="kerndaten-label">Ausrufpreis</span>
+        <span class="kerndaten-value">€ X.XXX.XXX</span>
+        <span class="kerndaten-sub">Gerichtlicher Schätzwert</span>
+      </div>
+      <div class="kerndaten-item">
+        <span class="kerndaten-label">Nutzfläche</span>
+        <span class="kerndaten-value">ca. XXX m²</span>
+        <span class="kerndaten-sub">Gesamtgebäude</span>
+      </div>
+      <div class="kerndaten-item">
+        <span class="kerndaten-label">Zustand</span>
+        <span class="kerndaten-value" style="font-size:18px;">As-is</span>
+        <span class="kerndaten-sub">Bestandsgebäude</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- OBJEKT -->
+  <section class="section section--white">
+    <div class="section-inner">
+      <div class="objekt-grid">
+        <div>
+          <p class="section-label">Das Objekt</p>
+          <h2 class="section-title">Bestandsgebäude<br>in Top-Lage.</h2>
+          <div class="objekt-text">
+            <p>Das Objekt Schillerplatz 7 in 8010 Graz wird im Wege der gerichtlichen Versteigerung angeboten. Das Bestandsgebäude befindet sich in einer der begehrtesten Lagen von Graz — direkt am Schillerplatz, im historischen Zentrum der Stadt.</p>
+            <p>Das Gebäude wird im Ist-Zustand (as-is) veräußert. Besichtigungen sind nach Terminvereinbarung möglich — bitte nehmen Sie Kontakt auf.</p>
+          </div>
+          <div class="objektdaten">
+            <div class="objektdaten-row">
+              <span class="objektdaten-key">Adresse</span>
+              <span class="objektdaten-val">Schillerplatz 7, 8010 Graz</span>
+            </div>
+            <div class="objektdaten-row">
+              <span class="objektdaten-key">KG</span>
+              <span class="objektdaten-val">Graz-Innenstadt</span>
+            </div>
+            <div class="objektdaten-row">
+              <span class="objektdaten-key">EZ / GZ</span>
+              <span class="objektdaten-val">EZ XXXX · GZ XXXX</span>
+            </div>
+            <div class="objektdaten-row">
+              <span class="objektdaten-key">Grundstücksfläche</span>
+              <span class="objektdaten-val">ca. XXX m²</span>
+            </div>
+            <div class="objektdaten-row">
+              <span class="objektdaten-key">Widmung</span>
+              <span class="objektdaten-val">Kerngebiet</span>
+            </div>
+            <div class="objektdaten-row">
+              <span class="objektdaten-key">Baujahr</span>
+              <span class="objektdaten-val">XXXX (Gründerzeitgebäude)</span>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="termin-box">
+            <span class="termin-box-label">Versteigerungstermin</span>
+            <div class="termin-datum">TT. Monat JJJJ</div>
+            <div class="termin-uhrzeit">HH:MM Uhr</div>
+            <div class="termin-ort">
+              <strong>Bezirksgericht Graz-Innenstadt</strong>
+              Marburger Kai 49<br>
+              8010 Graz<br>
+              Saal XX
+            </div>
+          </div>
+          <div class="ausrufpreis-box">
+            <span class="ausrufpreis-label">Ausrufpreis</span>
+            <div class="ausrufpreis-value">€ X.XXX.XXX,–</div>
+            <p class="ausrufpreis-sub">Gemäß gerichtlichem Schätzwert. Mindestgebot: XX % des Schätzwerts laut Versteigerungsbedingungen des Gerichts.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOTOS -->
+  <section class="section section--light">
+    <div class="section-inner">
+      <p class="section-label">Fotos</p>
+      <h2 class="section-title">Das Objekt<br>in Bildern.</h2>
+      <div class="fotos-grid">
+        <div class="foto-main">
+          <img src="img/93834 Aussenansicht I.jpg" alt="Außenansicht" onclick="openFoto(0)">
+        </div>
+        <div class="foto-side">
+          <img src="img/93834 Aussenansicht II.jpg" alt="Außenansicht II" onclick="openFoto(1)">
+          <img src="img/luftaufnahme.jpg" alt="Luftaufnahme" onclick="openFoto(2)">
+          <img src="img/93834 Hinterhof.jpg" alt="Hinterhof" onclick="openFoto(3)">
+          <img src="img/93834 Ausblick innen.jpg" alt="Ausblick innen" onclick="openFoto(4)">
+        </div>
+      </div>
+      <div class="fotos-row">
+        <img src="img/Schillerpl 5.jpg" alt="Schillerplatz" onclick="openFoto(5)">
+        <img src="img/Schillerpl 4.jpg" alt="Schillerplatz" onclick="openFoto(6)">
+        <img src="img/schillerpl 3.jpg" alt="Schillerplatz" onclick="openFoto(7)">
+        <img src="img/93833 master.jpg" alt="Gebäude" onclick="openFoto(8)">
+      </div>
+    </div>
+  </section>
+
+  <!-- LAGE -->
+  <section class="section section--white">
+    <div class="section-inner">
+      <div class="lage-grid">
+        <div>
+          <p class="section-label">Lage</p>
+          <h2 class="section-title">Mitten im<br>Herzen von Graz.</h2>
+          <div class="lage-text">
+            <p>Der Schillerplatz liegt im historischen Zentrum von Graz — eine der gefragtesten Lagen der Stadt. Universität, Stadtpark, Einkaufsmöglichkeiten und Gastronomie sind zu Fuß erreichbar.</p>
+            <p>Ausgezeichnete öffentliche Anbindung: Straßenbahn und Bus direkt vor der Tür.</p>
+          </div>
+          <div class="lage-punkte">
+            <div class="lage-punkt"><span class="lage-punkt-icon">◆</span><span><strong>5 min</strong> — Hauptbahnhof</span></div>
+            <div class="lage-punkt"><span class="lage-punkt-icon">◆</span><span><strong>3 min</strong> — Stadtpark</span></div>
+            <div class="lage-punkt"><span class="lage-punkt-icon">◆</span><span><strong>7 min</strong> — Universität Graz</span></div>
+            <div class="lage-punkt"><span class="lage-punkt-icon">◆</span><span><strong>2 min</strong> — Straßenbahn</span></div>
+          </div>
+        </div>
+        <div class="lage-map">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2717.5668983909077!2d15.454753091218365!3d47.06834565060126!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x476e4a881be27085%3A0x801abddd0e28891!2sSchillerpl.%207%2C%208010%20Graz!5e0!3m2!1sde!2sat!4v1780644217586!5m2!1sde!2sat" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- KONTAKT -->
+  <section class="section section--light" id="kontakt">
+    <div class="kontakt-inner">
+      <p class="section-label" style="text-align:center;">Kontakt</p>
+      <h2 class="section-title" style="text-align:center;">Fragen zur<br>Versteigerung?</h2>
+      <p>Für Besichtigungstermine, Unterlagen oder Auskünfte zum Objekt stehen wir gerne zur Verfügung.</p>
+      <div class="kontakt-cards">
+        <div class="kontakt-card">
+          <span class="kontakt-card-label">Ansprechpartner</span>
+          <div class="kontakt-card-value">
+            Werner Feischl<br>
+            Bauträger e.U.
+          </div>
+        </div>
+        <div class="kontakt-card">
+          <span class="kontakt-card-label">Adresse</span>
+          <div class="kontakt-card-value">
+            Kreuzgasse 4<br>
+            8010 Graz
+          </div>
+        </div>
+        <div class="kontakt-card">
+          <span class="kontakt-card-label">Telefon</span>
+          <div class="kontakt-card-value">
+            <a href="tel:+43316680520">0316 / 680 520</a>
+          </div>
+        </div>
+        <div class="kontakt-card">
+          <span class="kontakt-card-label">E-Mail</span>
+          <div class="kontakt-card-value">
+            <a href="mailto:info@a-real.at">info@a-real.at</a>
+          </div>
+        </div>
+      </div>
+      <p class="kontakt-hinweis">
+        Die Versteigerungsbedingungen, der Schätzwert und alle weiteren Unterlagen sind beim zuständigen
+        Bezirksgericht Graz-Innenstadt sowie bei uns erhältlich. Wir empfehlen, vor der Teilnahme rechtlichen Rat einzuholen.
+      </p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span>Werner Feischl Bauträger e.U.</span> · Graz
+      </div>
+      <p class="footer-copy">© 2026 Werner Feischl Bauträger e.U. · FN 292825a</p>
+    </div>
+  </footer>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+    <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+    <button class="lightbox-prev" onclick="event.stopPropagation(); changeSlide(-1)">&#8249;</button>
+    <img class="lightbox-img" id="lightboxImg" src="" alt="">
+    <button class="lightbox-next" onclick="event.stopPropagation(); changeSlide(1)">&#8250;</button>
+  </div>
+
+  <script>
+    window.addEventListener('scroll', () => {
+      document.getElementById('nav').classList.toggle('nav--scrolled', window.scrollY > 60);
+    });
+
+    const fotoSlides = [
+      'img/93834 Aussenansicht I.jpg',
+      'img/93834 Aussenansicht II.jpg',
+      'img/luftaufnahme.jpg',
+      'img/93834 Hinterhof.jpg',
+      'img/93834 Ausblick innen.jpg',
+      'img/Schillerpl 5.jpg',
+      'img/Schillerpl 4.jpg',
+      'img/schillerpl 3.jpg',
+      'img/93833 master.jpg',
+    ];
+    let currentIndex = 0;
+    function openFoto(index) {
+      currentIndex = index;
+      document.getElementById('lightboxImg').src = fotoSlides[index];
+      document.getElementById('lightbox').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox(e) {
+      if (e && e.target !== document.getElementById('lightbox') && !e.target.classList.contains('lightbox-close')) return;
+      document.getElementById('lightbox').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    function changeSlide(dir) {
+      currentIndex = (currentIndex + dir + fotoSlides.length) % fotoSlides.length;
+      document.getElementById('lightboxImg').src = fotoSlides[currentIndex];
+    }
+    document.addEventListener('keydown', e => {
+      if (!document.getElementById('lightbox').classList.contains('open')) return;
+      if (e.key === 'Escape') closeLightbox({ target: document.getElementById('lightbox') });
+      if (e.key === 'ArrowRight') changeSlide(1);
+      if (e.key === 'ArrowLeft') changeSlide(-1);
+    });
+  </script>
+</body>
+</html>
