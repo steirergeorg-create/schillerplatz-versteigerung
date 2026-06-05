@@ -322,6 +322,53 @@
       line-height: 1.6;
     }
 
+    /* ── UNTERLAGEN ── */
+    .docs-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      margin-top: 40px;
+    }
+    .doc-card {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: var(--white);
+      padding: 20px 24px;
+      transition: background 0.15s;
+      cursor: pointer;
+    }
+    .doc-card:hover { background: #fdf0f6; }
+    .doc-icon {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      color: var(--pink);
+      border: 1px solid var(--pink);
+      padding: 3px 6px;
+      flex-shrink: 0;
+    }
+    .doc-info { flex: 1; }
+    .doc-name {
+      font-size: 14px;
+      color: var(--text);
+      font-weight: 500;
+      margin-bottom: 3px;
+    }
+    .doc-meta {
+      font-size: 11px;
+      color: var(--gray);
+      letter-spacing: 0.06em;
+    }
+    .doc-dl {
+      font-size: 18px;
+      color: var(--gray);
+      transition: color 0.15s;
+    }
+    .doc-card:hover .doc-dl { color: var(--pink); }
+
     /* ── FOTOS ── */
     .fotos-grid {
       display: grid;
@@ -528,6 +575,7 @@
 
     /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
+      .docs-grid { grid-template-columns: 1fr; }
       .nav { padding: 0 24px; }
       .hero-content { padding: 0 24px 56px; }
       .kerndaten { padding: 0 24px; }
@@ -662,8 +710,73 @@
     </div>
   </section>
 
+  <!-- UNTERLAGEN -->
+  <section class="section section--light" id="unterlagen">
+    <div class="section-inner">
+      <p class="section-label">Unterlagen</p>
+      <h2 class="section-title">Dokumente zum<br>Download.</h2>
+      <div class="docs-grid">
+
+        <a href="docs/GB-Auszug-EZ-829.pdf" target="_blank" class="doc-card">
+          <div class="doc-icon">PDF</div>
+          <div class="doc-info">
+            <div class="doc-name">Grundbuchauszug EZ 829</div>
+            <div class="doc-meta">Grundbuchauszug</div>
+          </div>
+          <div class="doc-dl">↓</div>
+        </a>
+
+        <a href="docs/GB-Auszug-EZ-828.pdf" target="_blank" class="doc-card">
+          <div class="doc-icon">PDF</div>
+          <div class="doc-info">
+            <div class="doc-name">Grundbuchauszug EZ 828</div>
+            <div class="doc-meta">Grundbuchauszug</div>
+          </div>
+          <div class="doc-dl">↓</div>
+        </a>
+
+        <a href="docs/GB-Nr-EZ-1411.pdf" target="_blank" class="doc-card">
+          <div class="doc-icon">PDF</div>
+          <div class="doc-info">
+            <div class="doc-name">Grundbuch EZ 1411</div>
+            <div class="doc-meta">Grundbuchauszug</div>
+          </div>
+          <div class="doc-dl">↓</div>
+        </a>
+
+        <a href="docs/Lageplan.pdf" target="_blank" class="doc-card">
+          <div class="doc-icon">PDF</div>
+          <div class="doc-info">
+            <div class="doc-name">Lageplan</div>
+            <div class="doc-meta">Grundstücksgrenzen</div>
+          </div>
+          <div class="doc-dl">↓</div>
+        </a>
+
+        <a href="docs/Bebauungsplan.pdf" target="_blank" class="doc-card">
+          <div class="doc-icon">PDF</div>
+          <div class="doc-info">
+            <div class="doc-name">Bebauungsplan</div>
+            <div class="doc-meta">Widmung &amp; Bebauung</div>
+          </div>
+          <div class="doc-dl">↓</div>
+        </a>
+
+        <a href="docs/Bebauungsplan-Beschluss.pdf" target="_blank" class="doc-card">
+          <div class="doc-icon">PDF</div>
+          <div class="doc-info">
+            <div class="doc-name">Bebauungsplan Beschluss</div>
+            <div class="doc-meta">Widmung &amp; Bebauung</div>
+          </div>
+          <div class="doc-dl">↓</div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
   <!-- FOTOS -->
-  <section class="section section--light">
+  <section class="section section--white">
     <div class="section-inner">
       <p class="section-label">Fotos</p>
       <h2 class="section-title">Das Objekt<br>in Bildern.</h2>
