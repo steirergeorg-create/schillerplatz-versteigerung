@@ -29,8 +29,10 @@
       color: var(--text);
       background: var(--white);
       -webkit-font-smoothing: antialiased;
+      -webkit-text-size-adjust: 100%;
     }
-    a { color: inherit; text-decoration: none; }
+    a { color: inherit; text-decoration: none; -webkit-tap-highlight-color: transparent; }
+    button { -webkit-tap-highlight-color: transparent; }
 
     /* ── NAV ── */
     .nav {
@@ -72,13 +74,17 @@
       text-transform: uppercase;
       color: rgba(255,255,255,0.7);
       border: 1px solid rgba(255,255,255,0.25);
-      padding: 8px 20px;
+      padding: 10px 20px;
+      min-height: 44px;
+      display: flex;
+      align-items: center;
       transition: color 0.2s, border-color 0.2s;
     }
     .nav-cta:hover { color: #fff; border-color: rgba(255,255,255,0.6); }
 
     /* ── HERO ── */
     .hero {
+      height: 100dvh;
       height: 100vh;
       min-height: 560px;
       position: relative;
@@ -580,20 +586,34 @@
       .hero-content { padding: 0 24px 56px; }
       .kerndaten { padding: 0 24px; }
       .kerndaten-grid { grid-template-columns: repeat(2, 1fr); }
-      .section { padding: 64px 24px; }
+      .section { padding: 56px 20px; }
       .objekt-grid { grid-template-columns: 1fr; gap: 40px; }
       .fotos-grid { grid-template-columns: 1fr; }
-      .foto-main img { height: 280px; }
+      .foto-main img { height: 260px; }
       .foto-side { grid-template-columns: 1fr 1fr; }
-      .foto-side img { height: 138px; }
+      .foto-side img { height: 128px; }
       .fotos-row { grid-template-columns: 1fr 1fr; }
       .lage-grid { grid-template-columns: 1fr; }
+      .lage-map { height: 280px; }
       .kontakt-cards { grid-template-columns: 1fr; }
+      .kontakt-card { padding: 20px 24px; }
       .footer { padding: 32px 24px; }
+      .termin-box { padding: 24px; }
+      .ausrufpreis-box { padding: 20px 24px; }
+      .ausrufpreis-value { font-size: 28px; }
+      .doc-card { padding: 16px 20px; min-height: 56px; }
     }
     @media (max-width: 480px) {
       .kerndaten-grid { grid-template-columns: 1fr 1fr; }
+      .kerndaten-item { padding: 20px 16px; }
+      .kerndaten-value { font-size: 18px; }
       .fotos-row { grid-template-columns: 1fr 1fr; }
+      .objektdaten-key { width: 110px; font-size: 10px; padding: 11px 12px; }
+      .objektdaten-val { font-size: 13px; padding: 11px 12px; }
+      .hero-termin-value { font-size: 18px; }
+      .termin-datum { font-size: 22px; }
+      .section-title { margin-bottom: 28px; }
+      .kontakt-card { padding: 16px 20px; }
     }
   </style>
 </head>
@@ -807,20 +827,20 @@
       <h2 class="section-title">Das Objekt<br>in Bildern.</h2>
       <div class="fotos-grid">
         <div class="foto-main">
-          <img src="img/93834 Aussenansicht I.jpg" alt="Außenansicht" onclick="openFoto(0)">
+          <img loading="lazy" src="img/93834 Aussenansicht I.jpg" alt="Außenansicht" onclick="openFoto(0)">
         </div>
         <div class="foto-side">
-          <img src="img/93834 Aussenansicht II.jpg" alt="Außenansicht II" onclick="openFoto(1)">
-          <img src="img/luftaufnahme.jpg" alt="Luftaufnahme" onclick="openFoto(2)">
-          <img src="img/93834 Hinterhof.jpg" alt="Hinterhof" onclick="openFoto(3)">
-          <img src="img/93834 Ausblick innen.jpg" alt="Ausblick innen" onclick="openFoto(4)">
+          <img loading="lazy" src="img/93834 Aussenansicht II.jpg" alt="Außenansicht II" onclick="openFoto(1)">
+          <img loading="lazy" src="img/luftaufnahme.jpg" alt="Luftaufnahme" onclick="openFoto(2)">
+          <img loading="lazy" src="img/93834 Hinterhof.jpg" alt="Hinterhof" onclick="openFoto(3)">
+          <img loading="lazy" src="img/93834 Ausblick innen.jpg" alt="Ausblick innen" onclick="openFoto(4)">
         </div>
       </div>
       <div class="fotos-row">
-        <img src="img/Schillerpl 5.jpg" alt="Schillerplatz" onclick="openFoto(5)">
-        <img src="img/Schillerpl 4.jpg" alt="Schillerplatz" onclick="openFoto(6)">
-        <img src="img/schillerpl 3.jpg" alt="Schillerplatz" onclick="openFoto(7)">
-        <img src="img/93833 master.jpg" alt="Gebäude" onclick="openFoto(8)">
+        <img loading="lazy" src="img/Schillerpl 5.jpg" alt="Schillerplatz" onclick="openFoto(5)">
+        <img loading="lazy" src="img/Schillerpl 4.jpg" alt="Schillerplatz" onclick="openFoto(6)">
+        <img loading="lazy" src="img/schillerpl 3.jpg" alt="Schillerplatz" onclick="openFoto(7)">
+        <img loading="lazy" src="img/93833 master.jpg" alt="Gebäude" onclick="openFoto(8)">
       </div>
     </div>
   </section>
