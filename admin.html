@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin · Schillerplatz 7</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Lora:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --pink: #e8007d;
+      --text: #1a1a18;
+      --gray: #6b6b68;
+      --light: #f5f4f0;
+      --white: #ffffff;
+      --border: #e2e0da;
+      --dark: #111110;
+      --sans: 'Inter', system-ui, sans-serif;
+      --serif: 'Lora', Georgia, serif;
+    }
+    body {
+      font-family: var(--sans);
+      background: var(--light);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+    }
+
+    /* ── LOGIN ── */
+    .login-wrap {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .login-box {
+      background: var(--white);
+      border: 1px solid var(--border);
+      padding: 48px;
+      width: 100%;
+      max-width: 400px;
+    }
+    .login-title {
+      font-family: var(--serif);
+      font-size: 28px;
+      font-weight: 400;
+      margin-bottom: 8px;
+    }
+    .login-sub {
+      font-size: 13px;
+      color: var(--gray);
+      margin-bottom: 32px;
+    }
+    .login-label {
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gray);
+      display: block;
+      margin-bottom: 8px;
+    }
+    .login-input {
+      width: 100%;
+      border: 1px solid var(--border);
+      background: var(--light);
+      padding: 13px 16px;
+      font-family: var(--sans);
+      font-size: 14px;
+      outline: none;
+      margin-bottom: 16px;
+      transition: border-color 0.2s;
+    }
+    .login-input:focus { border-color: var(--pink); }
+    .login-btn {
+      width: 100%;
+      background: var(--pink);
+      color: #fff;
+      border: none;
+      padding: 14px;
+      font-family: var(--sans);
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .login-btn:hover { opacity: 0.9; }
+    .login-error {
+      font-size: 13px;
+      color: var(--pink);
+      margin-top: 12px;
+      display: none;
+    }
+
+    /* ── DASHBOARD ── */
+    .dashboard { display: none; }
+    .dash-header {
+      background: var(--dark);
+      padding: 20px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .dash-title {
+      font-family: var(--serif);
+      font-size: 18px;
+      color: #fff;
+      font-weight: 400;
+    }
+    .dash-title span { color: var(--pink); }
+    .dash-logout {
+      font-size: 12px;
+      color: rgba(255,255,255,0.5);
+      cursor: pointer;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: none;
+      border: none;
+      font-family: var(--sans);
+    }
+    .dash-logout:hover { color: #fff; }
+    .dash-content {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 40px;
+    }
+    .dash-period {
+      font-size: 12px;
+      color: var(--gray);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+
+    /* Stat Cards */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      margin-bottom: 32px;
+    }
+    .stat-card {
+      background: var(--white);
+      padding: 28px 24px;
+    }
+    .stat-card-label {
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gray);
+      display: block;
+      margin-bottom: 8px;
+    }
+    .stat-card-value {
+      font-family: var(--serif);
+      font-size: 36px;
+      color: var(--text);
+      line-height: 1;
+    }
+    .stat-card-value--pink { color: var(--pink); }
+
+    /* Grids */
+    .dash-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-bottom: 32px;
+    }
+    .dash-panel {
+      background: var(--white);
+      border: 1px solid var(--border);
+    }
+    .dash-panel-title {
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gray);
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border);
+    }
+    .dash-panel-body { padding: 8px 0; }
+    .dash-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      border-bottom: 1px solid var(--border);
+      font-size: 13px;
+    }
+    .dash-row:last-child { border-bottom: none; }
+    .dash-row-label { color: var(--text); }
+    .dash-row-value {
+      font-weight: 500;
+      color: var(--pink);
+    }
+    .dash-bar-wrap {
+      padding: 12px 20px;
+      border-bottom: 1px solid var(--border);
+    }
+    .dash-bar-wrap:last-child { border-bottom: none; }
+    .dash-bar-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+    .dash-bar-track {
+      height: 4px;
+      background: var(--light);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .dash-bar-fill {
+      height: 100%;
+      background: var(--pink);
+      border-radius: 2px;
+    }
+
+    /* Aktivitäts-Log */
+    .activity-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+    }
+    .activity-table th {
+      text-align: left;
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gray);
+      padding: 10px 16px;
+      border-bottom: 1px solid var(--border);
+      font-weight: 400;
+    }
+    .activity-table td {
+      padding: 10px 16px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text);
+    }
+    .activity-table tr:last-child td { border-bottom: none; }
+    .badge {
+      display: inline-block;
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 2px 8px;
+    }
+    .badge--pageview { background: #eef7e8; color: #4a8a20; }
+    .badge--download { background: #fce8f3; color: var(--pink); }
+
+    .dash-empty {
+      padding: 32px 20px;
+      text-align: center;
+      font-size: 13px;
+      color: var(--gray);
+    }
+    .loading {
+      padding: 32px;
+      text-align: center;
+      font-size: 13px;
+      color: var(--gray);
+    }
+
+    @media (max-width: 768px) {
+      .stats-row { grid-template-columns: 1fr 1fr; }
+      .dash-grid { grid-template-columns: 1fr; }
+      .dash-content { padding: 24px 20px; }
+      .dash-header { padding: 16px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- LOGIN -->
+  <div class="login-wrap" id="loginWrap">
+    <div class="login-box">
+      <h1 class="login-title">Admin</h1>
+      <p class="login-sub">Schillerplatz 7 · Besucherstatistik</p>
+      <label class="login-label">Passwort</label>
+      <input type="password" class="login-input" id="passwordInput" placeholder="••••••••" onkeydown="if(event.key==='Enter') doLogin()">
+      <button class="login-btn" onclick="doLogin()">Anmelden</button>
+      <p class="login-error" id="loginError">Falsches Passwort.</p>
+    </div>
+  </div>
+
+  <!-- DASHBOARD -->
+  <div class="dashboard" id="dashboard">
+    <div class="dash-header">
+      <div class="dash-title">Admin · <span>Schillerplatz 7</span></div>
+      <button class="dash-logout" onclick="doLogout()">Abmelden</button>
+    </div>
+    <div class="dash-content">
+      <p class="dash-period" id="dashPeriod">Letzte 30 Tage</p>
+      <div id="dashLoading" class="loading">Daten werden geladen…</div>
+      <div id="dashMain" style="display:none;">
+
+        <!-- Stat Cards -->
+        <div class="stats-row" id="statsRow"></div>
+
+        <!-- Charts -->
+        <div class="dash-grid">
+          <div class="dash-panel">
+            <div class="dash-panel-title">Downloads nach Dokument</div>
+            <div class="dash-panel-body" id="docPanel"></div>
+          </div>
+          <div class="dash-panel">
+            <div class="dash-panel-title">Besucher nach Land</div>
+            <div class="dash-panel-body" id="countryPanel"></div>
+          </div>
+        </div>
+
+        <div class="dash-grid">
+          <div class="dash-panel">
+            <div class="dash-panel-title">Gerät</div>
+            <div class="dash-panel-body" id="devicePanel"></div>
+          </div>
+          <div class="dash-panel">
+            <div class="dash-panel-title">Gesamt</div>
+            <div class="dash-panel-body" id="totalPanel"></div>
+          </div>
+        </div>
+
+        <!-- Aktivitäts-Log -->
+        <div class="dash-panel">
+          <div class="dash-panel-title">Letzte Aktivitäten</div>
+          <div style="overflow-x:auto;">
+            <table class="activity-table">
+              <thead>
+                <tr>
+                  <th>Zeit</th>
+                  <th>Typ</th>
+                  <th>Details</th>
+                  <th>Land</th>
+                  <th>Gerät</th>
+                </tr>
+              </thead>
+              <tbody id="activityLog"></tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let authToken = sessionStorage.getItem('admin_token') || '';
+
+    // Auto-login if token stored
+    if (authToken) tryLoad();
+
+    function doLogin() {
+      const pw = document.getElementById('passwordInput').value;
+      authToken = pw;
+      sessionStorage.setItem('admin_token', pw);
+      tryLoad();
+    }
+
+    function doLogout() {
+      authToken = '';
+      sessionStorage.removeItem('admin_token');
+      document.getElementById('loginWrap').style.display = 'flex';
+      document.getElementById('dashboard').style.display = 'none';
+      document.getElementById('loginError').style.display = 'none';
+      document.getElementById('passwordInput').value = '';
+    }
+
+    async function tryLoad() {
+      try {
+        const res = await fetch('/api/stats', {
+          headers: { 'Authorization': `Bearer ${authToken}` }
+        });
+        if (res.status === 401) {
+          document.getElementById('loginError').style.display = 'block';
+          sessionStorage.removeItem('admin_token');
+          return;
+        }
+        const data = await res.json();
+        document.getElementById('loginWrap').style.display = 'none';
+        document.getElementById('dashboard').style.display = 'block';
+        renderDashboard(data);
+      } catch {
+        document.getElementById('loginError').style.display = 'block';
+        document.getElementById('loginError').textContent = 'Verbindungsfehler.';
+      }
+    }
+
+    function renderDashboard(data) {
+      document.getElementById('dashLoading').style.display = 'none';
+      document.getElementById('dashMain').style.display = 'block';
+
+      const d = data.last30days;
+
+      // Stat Cards
+      document.getElementById('statsRow').innerHTML = `
+        <div class="stat-card">
+          <span class="stat-card-label">Seitenaufrufe</span>
+          <span class="stat-card-value stat-card-value--pink">${d.pageviews}</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-card-label">Downloads</span>
+          <span class="stat-card-value">${d.downloads}</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-card-label">Länder</span>
+          <span class="stat-card-value">${Object.keys(d.countries).length}</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-card-label">Gesamt Events</span>
+          <span class="stat-card-value">${data.total}</span>
+        </div>
+      `;
+
+      // Downloads
+      renderBars('docPanel', d.docCounts);
+
+      // Länder
+      renderBars('countryPanel', d.countries);
+
+      // Geräte
+      renderBars('devicePanel', d.devices);
+
+      // Gesamt
+      document.getElementById('totalPanel').innerHTML = `
+        <div class="dash-row">
+          <span class="dash-row-label">Alle Events gesamt</span>
+          <span class="dash-row-value">${data.total}</span>
+        </div>
+        <div class="dash-row">
+          <span class="dash-row-label">Letzte 30 Tage</span>
+          <span class="dash-row-value">${d.pageviews + d.downloads}</span>
+        </div>
+      `;
+
+      // Aktivitäts-Log
+      const tbody = document.getElementById('activityLog');
+      if (!data.latest || data.latest.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;padding:24px;color:#999;">Noch keine Daten</td></tr>';
+        return;
+      }
+      tbody.innerHTML = data.latest.map(e => `
+        <tr>
+          <td>${formatTime(e.timestamp)}</td>
+          <td><span class="badge badge--${e.type}">${e.type === 'pageview' ? 'Aufruf' : 'Download'}</span></td>
+          <td>${e.doc ? e.doc : (e.page || '/')}</td>
+          <td>${e.country || '??'}</td>
+          <td>${e.device || '—'}</td>
+        </tr>
+      `).join('');
+    }
+
+    function renderBars(id, obj) {
+      const el = document.getElementById(id);
+      if (!obj || Object.keys(obj).length === 0) {
+        el.innerHTML = '<div class="dash-empty">Noch keine Daten</div>';
+        return;
+      }
+      const sorted = Object.entries(obj).sort((a, b) => b[1] - a[1]);
+      const max = sorted[0][1];
+      el.innerHTML = sorted.map(([label, count]) => `
+        <div class="dash-bar-wrap">
+          <div class="dash-bar-label">
+            <span>${label}</span>
+            <span>${count}</span>
+          </div>
+          <div class="dash-bar-track">
+            <div class="dash-bar-fill" style="width:${Math.round(count/max*100)}%"></div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function formatTime(ts) {
+      const d = new Date(ts);
+      return d.toLocaleDateString('de-AT') + ' ' + d.toLocaleTimeString('de-AT', { hour: '2-digit', minute: '2-digit' });
+    }
+  </script>
+</body>
+</html>

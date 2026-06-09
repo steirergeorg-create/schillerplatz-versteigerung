@@ -993,5 +993,32 @@
       if (e.key === 'ArrowLeft') changeSlide(-1);
     });
   </script>
+
+  <!-- TRACKING -->
+  <script>
+    function track(type, extra) {
+      fetch('/api/track', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          type,
+          page: window.location.pathname,
+          referrer: document.referrer || null,
+          ...extra
+        })
+      }).catch(() => {});
+    }
+
+    // Seitenaufruf
+    track('pageview');
+
+    // PDF-Downloads tracken
+    document.querySelectorAll('a[href^="docs/"]').forEach(link => {
+      link.addEventListener('click', () => {
+        const doc = link.href.split('/').pop().replace('.pdf', '');
+        track('download', { doc });
+      });
+    });
+  </script>
 </body>
 </html>
